@@ -9,14 +9,12 @@ setTimeout( () => f(5), 1500);
 
 
 function debounce(func, delay){
-  let flag  = true
+  let flag = true
   return function(){
-    if (!flag){return}
-    setTimeout(() => helloThere, delay)
-    function helloThere() => {
-      func.apply(this, arguments)
-      flag = false
-    }
-    flag = true
+      if (flag){
+        func.apply(this, arguments)
+        flag = false
+        setTimeout(() => {flag = true}, delay)        
+      }
   }
 }
