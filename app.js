@@ -1,6 +1,34 @@
+async function f() {
+  let i = await new Promise(function (recive, reject) {
+      setTimeout(() => recive(1), 2000)
+  })
+  return i
+
+}
+  
+  f().then(item => console.log(item))
+
+
+// let promise = new Promise(function (recive, reject){
+//     err =  new Error('Ну вот так вот')
+//     reject(err)
+// })
+// promise.catch(error => console.log(error.__proto__))
 
 
 
+
+
+
+
+
+// function delay(ms) {
+//     return new Promise(function (resolve){
+//         setTimeout(resolve, ms)
+//     })
+//   }
+  
+//   delay(3000).then(() => console.log('выполнилось через 3 секунды'));
 
 
 
