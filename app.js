@@ -1,13 +1,90 @@
-async function f() {
-  let i = await new Promise(function (recive, reject) {
-      setTimeout(() => recive(1), 2000)
+
+let user = {
+    name: "Вася",
+    _password: "***"
+  };
+
+  user = new Proxy(user, {
+    get(target, prop){
+        if (prop.startsWith('_')) throw new Error('Access is denied');
+        return (typeof target[prop] === 'function') ? target[prop].bind(target) : target[prop]
+    },
+    set(target, prop, val){
+        if (prop.startsWith('_')) throw new Error('Access is denied');
+        target[prop] = val
+        return true
+    },
+    deleteProperty(target, prop){
+        if (prop.startsWith('_')) throw new Error('Access is denied');
+        delete target[prop]
+        return true
+    },        
+    ownKeys(target, prop){
+        return Object.keys(target).filter(key => !key.startsWith('_'))
+    },
   })
-  return i
-
-}
+// "get" не позволяет прочитать _password
+try {
+    console.log(user._password); // Error: Отказано в доступе
+  } catch(e) { console.log(e.message); }
   
-  f().then(item => console.log(item))
+  // "set" не позволяет записать _password
+  try {
+    user._password = "test"; // Error: Отказано в доступе
+  } catch(e) { console.log(e.message); }
+  
+  // "deleteProperty" не позволяет удалить _password
+  try {
+    delete user._password; // Error: Отказано в доступе
+  } catch(e) { console.log(e.message); }
+  
+  // "ownKeys" исключает _password из списка видимых для итерации свойств
+  for(let key in user) console.log(key); // name
 
+
+
+// function loadJson(url) {
+//     return fetch(url)
+//       .then(response => {
+//         if (response.status == 200) {
+//           return response.json();
+//         } else {
+//           throw new Error(response.status);
+//         }
+//       })
+//   }
+  
+//   loadJson('no-such-user.json') // (3)
+//     .catch(alert); // Error: 404
+
+
+// async function loadJson(url) {
+//     let response = await fetch(url)
+//     console.log(response)
+// }
+
+// loadJson('https://learn.javascript.ru/async-await#asinhronnye-funktsii')
+
+// fetch('https://jsonplaceholder.typicode.com/users')
+//   .then(response => response.json())
+//   .then(json => console.log(json))
+
+
+
+
+
+// async function f() {
+//   let i = undefined
+//   i = await new Promise(function (recive, reject) {
+//       setTimeout(() => recive(1), 2000)
+//   })
+//   return i
+
+// }
+  
+//   f().then(item => {console.log(item); return undefined}).then(item => {console.log(2)})
+
+  
 
 // let promise = new Promise(function (recive, reject){
 //     err =  new Error('Ну вот так вот')
