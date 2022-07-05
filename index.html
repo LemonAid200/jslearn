@@ -1,24 +1,52 @@
-<a name="list">the list</a>
-<ul>
-  <li><a href="http://google.com">http://google.com</a></li>
-  <li><a href="/tutorial">/tutorial.html</a></li>
-  <li><a href="local/path">local/path</a></li>
-  <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
-  <li><a href="http://nodejs.org">http://nodejs.org</a></li>
-  <li><a href="http://internal.com/test">http://internal.com/test</a></li>
-</ul>
+<!DOCTYPE HTML>
+<html>
 
-<script>
-  let links = document.querySelectorAll('a')
-  links.forEach(item => {
-    let href = item.getAttribute('href')
-    if (!href) return
-    if (href.startsWith('http://internal.com')) return
-    if (href.indexOf('://') === -1) return
-    item.style.color = 'orange'
-    console.log(href)
-  })
- 
-  // добавление стиля для одной ссылки
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
 
-</script>
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="calendar"></div>
+
+  <script>
+    function createCalendar(elem, year, month) {
+      let weekDays = ['пн','вт','ср','чт','пт','сб','вс']
+      let table = document.createElement('table')
+      let weekLine = document.createElement('td')
+      weekDays.forEach(day => {
+        let square = document.createElement('th')
+        square.innerHTML = day
+        weekLine.append(square)
+      })
+      table.append(weekLine)
+      elem.append(table)
+
+      let date = new Date(year, month)
+      console.log(date)
+
+
+    }
+
+    createCalendar(calendar, 2012, 9);
+  </script>
+
+</body>
+</html>
