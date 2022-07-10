@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="calendar"></div>
+
+  <script>
+
+    Date.prototype.daysInMonth = function() {
+      return 32 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
+    };
+
+    
+
+
+
+    function createCalendar(elem, year, month) {
+      let table = document.createElement('table')
+      let date = new Date(year, month-1)
+
+      let weekLine = document.createElement('tr')
+      let weekDays = ['пн','вт','ср','чт','пт','сб','вс']
+
+      weekDays.forEach(day => {
+        let square = document.createElement('th')
+        square.innerHTML = day
+        weekLine.append(square)
+      })
+
+      table.append(weekLine)
+      elem.append(table)
+
+      let daysInMonth = date.daysInMonth()
+      let amountOfTdsInTable = daysInMonth/7
+
+      let flag = true
+      let counter2 = 1
+      for (let i = 0; i<= amountOfTdsInTable; i++){
+        let line = document.createElement('tr')
+        for (let j = 0; j < 7; j++){
+          if (flag){
+            if (date.getDay()-1 > j){
+              let square = document.createElement('th')
+              square.innerHTML = ''
+              line.append(square)
+              continue
+            }
+            flag = false
+            
+          }
+          
+          let square = document.createElement('th')
+          if (counter2 <= daysInMonth){
+            square.innerHTML = counter2++
+          }
+          line.append(square)
+
+        }
+        table.append(line)
+      }
+
+    }
+
+    createCalendar(calendar, 2022, 7);
+  </script>
+
+</body>
+</html>

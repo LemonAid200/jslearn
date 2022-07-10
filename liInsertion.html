@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+</body>
+
+<script>
+   // показывает элемент с текстом "Hello" рядом с правой верхней частью окна.
+showNotification({
+  top: 10, // 10px от верхней границы окна (по умолчанию 0px)
+  right: 10, // 10px от правого края окна (по умолчанию 0px)
+  html: "Hello!", // HTML-уведомление
+  className: "welcome" // дополнительный класс для div (необязательно)
+});
+
+function showNotification({top = 0, right = 0, className, html}) {
+
+    let notification = document.createElement('div');
+    notification.className = "notification";
+    if (className) {
+      notification.classList.add(className);
+    }
+
+    notification.style.top = top + 'px';
+    notification.style.right = right + 'px';
+
+    notification.innerHTML = html;
+    document.body.append(notification);
+
+  }
+
+
+</script>
+
+<style>
+   .welcome {
+        color: blue;
+        background-color: bisque;
+        width: fit-content;
+        padding: 10px;
+    }
+</style>
+</html>

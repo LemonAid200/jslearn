@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="timer">
+        <p> <span id="hh" style="color: red;">hh</span>:<span id="mm" style="color: green;">mm</span>:<span id="ss" style="color: blue;">ss</span> </p>
+
+        <button id="startButton">start</button>
+        <button id="stopButton">stop</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    let hh = document.getElementById('hh')
+    let mm = document.getElementById('mm')
+    let ss = document.getElementById('ss')
+
+    hh.innerHTML = (new Date()).getHours()
+    mm.innerHTML = (new Date()).getMinutes()
+    ss.innerHTML = (new Date()).getSeconds()
+    
+
+    let second = 1000
+    let minute = 60 * second
+    let hour = 60 * minute
+    
+    
+   startTimer()
+    
+
+    function startTimer(){
+        ssTimer =  setInterval(() => {ss.innerHTML = (new Date()).getSeconds();hh.innerHTML = (new Date()).getHours();mm.innerHTML = (new Date()).getMinutes()} ,second)
+    }
+
+    function stopTimer(){
+
+       clearInterval( ssTimer)
+    }
+
+
+    startButton.addEventListener('click', startTimer)
+    stopButton.addEventListener('click', stopTimer)
+
+
+</script>
+
+<style>
+    timer{
+        font-size: 1000px;
+    }
+    
+    
+</style>
+</html>
