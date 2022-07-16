@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px solid black;
+      background-color: #00FF00;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    #ball{
+        position: absolute;
+        transition: all, 500ms;
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Нажмите на поле для перемещения мяча.
+  <br> Мяч не должен выходить за границы поля.
+
+
+  <div id="field">
+    <img src="https://ru.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+
+</body>
+
+<script>
+    let field = document.getElementById('field')
+    let ball = document.getElementById('ball')
+    let fieldWidth  = field.offsetWidth
+    
+
+    field.onclick = (event) => {
+        let x = event.clientX - ball.offsetWidth/2 - field.clientLeft
+        let y = event.clientY - ball.offsetHeight*1.5 - field.clientTop
+
+
+        ball.style.left = x + 'px'
+        ball.style.top = y + 'px'
+        
+    }
+</script>
+</html>
